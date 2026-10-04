@@ -18,16 +18,11 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
 
-    - name: Download MicroEmulator Stub Libraries
-      run: |
-        mkdir -p lib
-        wget -q https://repo1.maven.org/maven2/com/googlecode/microemu/microemu-midp/2.0.4/microemu-midp-2.0.4.jar -O lib/microemu-midp.jar
-
     - name: Compile Java Class
       run: |
         mkdir -p bin
-        find . -name "*.java" > sources.txt
-        javac -cp lib/microemu-midp.jar -d bin @sources.txt
+        # שימוש במחלקות בסיסיות של Java SE אם אין ספריות חיצוניות
+        javac -source 1.8 -target 1.8 -d bin ClaudeAI.java
 
     - name: Create Manifest
       run: |
