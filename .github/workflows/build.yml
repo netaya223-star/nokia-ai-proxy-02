@@ -21,8 +21,13 @@ jobs:
     - name: Compile Java Class
       run: |
         mkdir -p bin
-        # שימוש במחלקות בסיסיות של Java SE אם אין ספריות חיצוניות
-        javac -source 1.8 -target 1.8 -d bin ClaudeAI.java
+        # חיפוש אוטומטי של כל קבצי ה-java במאגר וקימפול שלהם
+        find . -name "*.java" > sources.txt
+        if [ ! -s sources.txt ]; then
+          echo "Error: No .java files found!"
+          exit 1
+        fi
+        javac -source 1.8 -target 1.8 -d bin @sources.txt
 
     - name: Create Manifest
       run: |
