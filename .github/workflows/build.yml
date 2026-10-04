@@ -21,7 +21,7 @@ jobs:
     - name: Download MicroEmulator Stub Libraries
       run: |
         mkdir -p lib
-        curl -sL https://repo1.maven.org/maven2/com/googlecode/microemu/microemu-midp/2.0.4/microemu-midp-2.0.4.jar -o lib/microemu-midp.jar
+        wget -q https://repo1.maven.org/maven2/com/googlecode/microemu/microemu-midp/2.0.4/microemu-midp-2.0.4.jar -O lib/microemu-midp.jar
 
     - name: Compile Java Class
       run: |
