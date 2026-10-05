@@ -18,16 +18,15 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
 
+    - name: Download MicroEmulator Stub Libraries
+      run: |
+        mkdir -p lib
+        curl -sL https://repo1.maven.org/maven2/com/googlecode/microemu/microemu-midp/2.0.4/microemu-midp-2.0.4.jar -o lib/microemu-midp.jar
+
     - name: Compile Java Class
       run: |
         mkdir -p bin
-        # חיפוש אוטומטי של כל קבצי ה-java במאגר וקימפול שלהם
-        find . -name "*.java" > sources.txt
-        if [ ! -s sources.txt ]; then
-          echo "Error: No .java files found!"
-          exit 1
-        fi
-        javac -source 1.8 -target 1.8 -d bin @sources.txt
+        javac -cp lib/microemu-midp.jar -d bin ClaudeAI.java
 
     - name: Create Manifest
       run: |
